@@ -14,6 +14,7 @@ if(WITH_3RD_PARTY_LIBS)
 else()
     set(DISABLE_SPDLOG ON)
     add_compile_definitions(WITH_3RD_PARTY_LIBS=0)
+    add_compile_definitions(DISABLE_SPDLOG=1)
 endif()
 
 # --- Compiler-specific flags
@@ -57,7 +58,6 @@ if(NOT WITH_3RD_PARTY_LIBS)
 endif()
 
 add_library(coacd STATIC ${COACD_SRC})
-target_include_directories(coacd PUBLIC public)
 target_include_directories(coacd PRIVATE 3rd/cdt/CDT)
 
 if(WITH_3RD_PARTY_LIBS)
@@ -66,7 +66,7 @@ endif()
 
 find_package(OpenMP)
 if (OpenMP_CXX_FOUND)
-    target_link_libraries(coacd PUBLIC OpenMP::OpenMP_CXX)
+    target_link_libraries(coacd PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
 find_package(Threads)
@@ -74,6 +74,7 @@ target_link_libraries(coacd PRIVATE Threads::Threads)
 set_target_properties(coacd PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 add_library(_coacd SHARED "public/coacd.cpp")
+target_include_directories(_coacd PUBLIC public)
 
 if(WITH_3RD_PARTY_LIBS)
     target_link_libraries(_coacd PRIVATE coacd spdlog::spdlog openvdb_static)
