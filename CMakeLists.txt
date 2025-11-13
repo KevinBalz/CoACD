@@ -19,7 +19,6 @@ if(WITH_3RD_PARTY_LIBS)
 else()
     add_definitions(-DDISABLE_SPDLOG)
     add_compile_definitions(WITH_3RD_PARTY_LIBS=0)
-    add_compile_definitions(DISABLE_SPDLOG=1)
 endif()
 
 # --- Compiler-specific flags
@@ -135,17 +134,3 @@ install(
 install(
   FILES public/coacd.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/CoACD)
-
-# ##############################################################################
-# Install Cmake Configuration
-# ##############################################################################
-
-include(CMakePackageConfigHelpers)
-
-configure_package_config_file(
-  ${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in
-  "${CMAKE_BINARY_DIR}/CoACDConfig.cmake"
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/CoACD)
-
-install(FILES "${CMAKE_BINARY_DIR}/CoACDConfig.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/CoACD)

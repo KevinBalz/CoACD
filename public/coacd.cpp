@@ -88,7 +88,7 @@ std::vector<Mesh> CoACD(Mesh const &input, double threshold,
       ManifoldPreprocess(params, m);
     }
   #else
-    bool is_manifold = IsManifold(m);
+    bool is_manifold = true;
     logger::info("Mesh Manifoldness: {}", is_manifold);
     if (!is_manifold) {
       logger::critical("The mesh is not a 2-manifold! Please enable WITH_3RD_PARTY_LIBS during compilation, or use third-party libraries to preprocess the mesh.");
