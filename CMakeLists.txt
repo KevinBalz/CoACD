@@ -96,7 +96,6 @@ target_link_libraries(coacd PRIVATE Threads::Threads)
 set_target_properties(coacd PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 add_library(_coacd SHARED "public/coacd.cpp")
-target_include_directories(_coacd PUBLIC public)
 
 if(WITH_3RD_PARTY_LIBS)
     target_link_libraries(_coacd PRIVATE coacd spdlog::spdlog openvdb_static)
@@ -134,3 +133,4 @@ install(
 install(
   FILES public/coacd.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/CoACD)
+
